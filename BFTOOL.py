@@ -14,6 +14,7 @@ import datetime
 import time
 import logger
 import os
+import wCount
 
 # Limit RAM usage to 5GB
 #memory_limit_bytes = 5 * 1024 * 1024 * 1024
@@ -40,7 +41,7 @@ def main():
 
         if choice == "1":
             gType = "Real"
-            number_of_lines = 851082816
+            number_of_lines = wCount.count_lines()
             textFile = "pwnedpasswords.txt"
             now = datetime.datetime.now()
             binFile = "finalBF_" + now.strftime("%H%M")
