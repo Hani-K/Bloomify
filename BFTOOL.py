@@ -21,6 +21,11 @@ import resource
 # Add number of lines extracter using wc -l {name of the file}
 # grip the numbers value and put it in a variable
 
+def bits_to_gigabyte(bits):
+    bytes = bits / 8
+    gigabytes = bytes / 1024 / 1024 / 1024
+    return gigabytes
+
 def format_duration(duration):
     seconds = duration #// 1000000
     hours, remainder = divmod(seconds, 3600)
@@ -71,6 +76,11 @@ num_bits = int(-(number_of_lines * math.log(false_positive_rate)) / (math.log(2)
 num_hashes = int((num_bits / number_of_lines) * math.log(2))
 #num_bits = int(math.ceil(num_bits_i / num_hashes) * num_hashes)
 
+numbit_in_gigabytes = bits_to_gigabyte(num_bits)
+print("num_hashes (k): ", num_hashes)
+print("num_bits   (m): ", num_bits)
+print(f"Number of bits in GBs: {numbit_in_gigabytes} GB")
+print("False Positives (p): ", false_positive_rate)
 
 # Create a bit array of the specified size, initialized to all 0s
 bit_array = bitarray.bitarray(num_bits)
