@@ -10,7 +10,6 @@
 import mmh3
 import bitarray
 import math
-import logging
 import datetime
 import time
 import logger
@@ -59,7 +58,8 @@ def main():
     while True:
         print("""\nWhich method to use?
         1. Standard (Default)
-        2. K compensator (hash collision workaround)""")
+        2. K compensator (hash collision workaround)
+        3. Partitioning (for very large file when 2nd option fails)""")
         method = input("Select: ")
 
         if method == "1":
@@ -73,6 +73,16 @@ def main():
             num_hashes = int(4 * math.log(num_bits_i))
             num_bits = int(math.ceil(num_bits_i / num_hashes) * num_hashes)
             break
+        if method == "3":
+            num_partitions = 8
+
+            # Calculate the required size of the bit array and the number of hash functions
+            num_bits = int(-(number_of_lines * math.log(false_positive_rate)) / (math.log(2) ** 2))
+            num_bits_per_partition = (num_bits + 1) // num_partitions
+
+            # Calculate hashes for each partition
+            num_hashes = int((num_bits_per_partition / number_of_lines) * math.log(2))
+            break
         else:
             print("Invalid choice. Try again.")
 
@@ -85,25 +95,44 @@ def main():
     print("num_bits   (m): ", num_bits)
     print(f"Number of bits in GBs: {numbit_in_gigabytes} GB")
     print("False Positives (p): ", false_positive_rate)
-
-    # Create a bit array of the specified size, initialized to all 0s
-    bit_array = bitarray.bitarray(num_bits)
-    bit_array.setall(False)
-
-    # For each password in the list, generate num_hashes hash values using MurmurHash3 and set the corresponding bits in the bit array to 1
-    # Open the text file containing the list of passwords
-    with open(textFile, 'r') as f:
-        for line in f:
-            password = line.strip()
-            for i in range(num_hashes):
-                hash_value = mmh3.hash64(password.encode(), i)[0] % num_bits
-                bit_array[hash_value] = True
-
-    # Write the Bloom filter to a binary file
-    with open(binFile, 'wb') as f:
-        bit_array.tofile(f)
-
     
+    if method == "3":
+        print(f"number of bits per partition:   {num_bits_per_partition}")
+
+        bit_arrays = [bitarray.bitarray(num_bits_per_partition) for _ in range(num_partitions)]
+        for bit_array in bit_arrays:
+            bit_array.setall(False)
+
+        with open(textFile, 'r') as f:
+            for line in f:
+                password = line.strip()
+                for i in range(num_partitions):
+                    hash_values = [mmh3.hash64(password.encode(), j, True)[0] % num_bits_per_partition for j in range(num_hashes)]
+                    for index in hash_values:
+                        bit_arrays[i][index] = True
+
+        # Write the Bloom filter to a binary file
+        for i in range(num_partitions):
+            with open(f'{binFile}{i}.bin', 'wb') as f:
+                bit_arrays[i].tofile(f)
+    else:
+        # Create a bit array of the specified size, initialized to all 0s
+        bit_array = bitarray.bitarray(num_bits)
+        bit_array.setall(False)
+
+        # For each password in the list, generate num_hashes hash values using MurmurHash3 and set the corresponding bits in the bit array to 1
+        # Open the text file containing the list of passwords
+        with open(textFile, 'r') as f:
+            for line in f:
+                password = line.strip()
+                for i in range(num_hashes):
+                    hash_value = mmh3.hash64(password.encode(), i)[0] % num_bits
+                    bit_array[hash_value] = True
+
+        # Write the Bloom filter to a binary file
+        with open(binFile, 'wb') as f:
+            bit_array.tofile(f)
+
     # Logging
     logger.logging_finish(start_time,textFile,binFile,gType,time_str0,num_hashes,num_bits,false_positive_rate)
     
