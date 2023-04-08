@@ -12,6 +12,31 @@ import resource
 #memory_limit_bytes = 5 * 1024 * 1024 * 1024
 #resource.setrlimit(resource.RLIMIT_AS, (memory_limit_bytes,memory_limit_bytes))
 
+# user input
+while True:
+    print("""Perform Real or Test?
+        1. Real
+        2. Test""")
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        gType = "Real"
+        number_of_lines = 851082816
+        textFile = "pwnedpasswords.txt"
+        now = datetime.datetime.now()
+        binFile = "finalBF_" + now.strftime("%H%M") + ".bin"
+        break
+    elif choice == "2":
+        gType = "Teal"
+        number_of_lines = 39
+        textFile = "testList.txt"
+        now = datetime.datetime.now()
+        binFile = "testBF.bin"
+        break
+    else:
+        print("Invalid choice. Try again.")
+
+
 # Logging
 start_time = time.perf_counter()
 now = datetime.datetime.now()
