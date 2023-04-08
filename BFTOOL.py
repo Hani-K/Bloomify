@@ -2,6 +2,24 @@
 
 import mmh3
 import bitarray
+import math
+import logging
+import datetime
+import time
+import resource
+
+# Limit RAM usage to 5GB
+#memory_limit_bytes = 5 * 1024 * 1024 * 1024
+#resource.setrlimit(resource.RLIMIT_AS, (memory_limit_bytes,memory_limit_bytes))
+
+# Logging
+start_time = time.perf_counter()
+now = datetime.datetime.now()
+time_str0 = now.strftime("%H:%M:%S.%f")[:-1]
+date_str = now.strftime("%Y%m%d")
+logfile = f"BfG_Log_{date_str}.log"
+logging.basicConfig(filename=logfile, level=logging.INFO)
+
 
 # Open the text file containing the list of passwords
 passwords = []
@@ -32,5 +50,25 @@ for password in passwords:
         bit_array[hash_value] = True
 
 # Write the Bloom filter to a binary file
-with open('bloom_filter.bin', 'wb') as f:
+with open('finalfinalBF.bin', 'wb') as f:
     bit_array.tofile(f)
+
+end_time = time.perf_counter()
+elapsed_time = end_time - start_time
+print("num_hashes (k): ", num_hashes)
+print("num_bits   (m): ", num_bits)
+print("False +ves (p): ", false_positive_rate)
+print(f"Time it took to Generate: {elapsed_time:.6f}")
+
+
+now = datetime.datetime.now()
+time_str1 = now.strftime("%H:%M:%S.%f")[:-1]
+date_str1 = now.strftime("%d/%m/%Y")
+logging.info(f"================:{date_str1}:================")
+logging.info(f"Started at: {time_str0}")
+logging.info(f"Ended   at: {time_str1}")
+logging.info(f"number of hashes (k): {num_hashes}")
+logging.info(f"number of bits   (m): {num_bits}")
+logging.info(f"False positives  (p): {false_positive_rate}")
+logging.info(f"Time it took to Generate: {elapsed_time:.6f}")
+logging.info(f"")
