@@ -13,6 +13,7 @@ import math
 import datetime
 import time
 import logger
+import os
 
 # Limit RAM usage to 5GB
 #memory_limit_bytes = 5 * 1024 * 1024 * 1024
@@ -42,14 +43,14 @@ def main():
             number_of_lines = 851082816
             textFile = "pwnedpasswords.txt"
             now = datetime.datetime.now()
-            binFile = "finalBF_" + now.strftime("%H%M") + ".bin"
+            binFile = "finalBF_" + now.strftime("%H%M")
             break
         elif choice == "2":
             gType = "Teal"
             number_of_lines = 39
             textFile = "testList.txt"
             now = datetime.datetime.now()
-            binFile = "testBF.bin"
+            binFile = "testBF"
             break
         else:
             print("Invalid choice. Try again.")
@@ -96,6 +97,10 @@ def main():
     print(f"Number of bits in GBs: {numbit_in_gigabytes} GB")
     print("False Positives (p): ", false_positive_rate)
     
+    results_folder = 'results'
+    if not os.path.exists(results_folder):
+        os.makedirs(results_folder)
+
     if method == "3":
         print(f"number of bits per partition:   {num_bits_per_partition}")
 
@@ -113,7 +118,7 @@ def main():
 
         # Write the Bloom filter to a binary file
         for i in range(num_partitions):
-            with open(f'{binFile}{i}.bin', 'wb') as f:
+            with open(os.path.join(results_folder, f'{binFile}{i}.bin'), 'wb') as f:
                 bit_arrays[i].tofile(f)
     else:
         # Create a bit array of the specified size, initialized to all 0s
@@ -130,11 +135,12 @@ def main():
                     bit_array[hash_value] = True
 
         # Write the Bloom filter to a binary file
-        with open(binFile, 'wb') as f:
+        with open(os.path.join(results_folder, f'{binFile}.bin'), 'wb') as f:
             bit_array.tofile(f)
 
     # Logging
-    logger.logging_finish(start_time,textFile,binFile,gType,time_str0,num_hashes,num_bits,false_positive_rate)
+    FinalBinFile = os.path.join(results_folder, f'{binFile}.bin')
+    logger.logging_finish(start_time,textFile,FinalBinFile,gType,time_str0,num_hashes,num_bits,false_positive_rate)
     
 if __name__ == '__main__':
     main()
