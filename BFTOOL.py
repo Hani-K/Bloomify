@@ -15,6 +15,7 @@ import time
 import logger
 import os
 import wCount
+import optimalP
 
 # Limit RAM usage to 5GB
 #memory_limit_bytes = 5 * 1024 * 1024 * 1024
@@ -29,9 +30,6 @@ def bits_to_gigabyte(bits):
     return gigabytes
 
 def main():
-    # Define the desired false positive rate
-    false_positive_rate = 0.001
-    
     # user input
     while True:
         print("""Perform Real or Test?
@@ -42,6 +40,7 @@ def main():
         if choice == "1":
             gType = "Real"
             number_of_lines = wCount.count_lines()
+            false_positive_rate = optimalP.p_Select(number_of_lines)
             textFile = "pwnedpasswords.txt"
             now = datetime.datetime.now()
             binFile = "finalBF_" + now.strftime("%H%M")
