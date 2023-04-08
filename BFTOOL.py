@@ -1,5 +1,11 @@
 #! /usr/bin/python
 
+#################
+#   This is the Base of the code. It works as well as MurMurHash3 algorithm works.
+#   Limitations: Large databases have a probability of hash collisions, which in 
+#   practice, shows all tested words as not detected.
+#################
+
 import mmh3
 import bitarray
 import math
