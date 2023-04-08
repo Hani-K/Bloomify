@@ -28,7 +28,7 @@ bit_array.setall(False)
 # For each password in the list, generate num_hashes hash values using MurmurHash3 and set the corresponding bits in the bit array to 1
 for password in passwords:
     for i in range(num_hashes):
-        hash_value = mmh3.hash64(password, i) % num_bits
+        hash_value = mmh3.hash64(password.encode(), i)[0] % num_bits
         bit_array[hash_value] = True
 
 # Write the Bloom filter to a binary file
