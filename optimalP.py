@@ -13,9 +13,9 @@ def p_Select(num_lines):
     optimal_false_positive_rate = calculate_optimal_false_positive_rate(num_lines)
 
     # Ask the user if they want to use the optimal false positive rate or set one manually
-    user_choice = input(f"The optimal false positive rate caculated is {optimal_false_positive_rate:.10f}. Do you want to use this value? (Y/N) ")
+    user_choice = input(f"The optimal false positive rate caculated is {optimal_false_positive_rate:.10f}. Do you want to use this value? (Y/n) ")
 
-    if user_choice.lower() == 'y':
+    if user_choice.lower() == 'y' or not user_choice:
         false_positive_rate = optimal_false_positive_rate
     else:
         false_positive_rate = float(input("Enter the desired false positive rate (e.g., 0.001): "))

@@ -46,7 +46,8 @@ def main():
             binFile = "finalBF_" + now.strftime("%H%M")
             break
         elif choice == "2":
-            gType = "Teal"
+            gType = "Test"
+            false_positive_rate = 0.0001
             number_of_lines = 39
             textFile = "testList.txt"
             now = datetime.datetime.now()
