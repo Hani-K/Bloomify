@@ -1,13 +1,8 @@
 #! /usr/bin/python
 
-import math
-import os
 import subprocess
 
-# Function to calculate the optimal false positive rate based on the number of passwords
-def calculate_optimal_false_positive_rate(num_passwords):
-    return math.pow(0.6185, math.log(num_passwords))
-
+# wc -l has been used to lower strain on memory for large files.
 def count_lines():
     filename = input('Enter the file path: \n')
     wc_output = subprocess.check_output(['wc', '-l', filename])

@@ -2,9 +2,7 @@
 
 #################
 #   This is the Base of the code. It works as well as MurMurHash3 algorithm works.
-#   Limitations: Large databases have a probability of hash collisions, which in 
-#   practice, shows all tested words as not detected.
-#   Added a workaround by increaing number of hash functions.
+#   Workarounds for hash collisions limitation have been provided.
 #################
 
 import mmh3
@@ -16,13 +14,6 @@ import logger
 import os
 import wCount
 import optimalP
-
-# Limit RAM usage to 5GB
-#memory_limit_bytes = 5 * 1024 * 1024 * 1024
-#resource.setrlimit(resource.RLIMIT_AS, (memory_limit_bytes,memory_limit_bytes))
-
-# Add number of lines extracter using wc -l {name of the file}
-# grip the numbers value and put it in a variable
 
 def bits_to_gigabyte(bits):
     bytes = bits / 8
@@ -76,13 +67,12 @@ def main():
             num_bits = int(math.ceil(num_bits_i / num_hashes) * num_hashes)
             break
         if method == "3":
+            # hash collisions workaround by partitioning the file into sigments
             num_partitions = 8
 
-            # Calculate the required size of the bit array and the number of hash functions
             num_bits = int(-(number_of_lines * math.log(false_positive_rate)) / (math.log(2) ** 2))
             num_bits_per_partition = (num_bits + 1) // num_partitions
 
-            # Calculate hashes for each partition
             num_hashes = int((num_bits_per_partition / number_of_lines) * math.log(2))
             break
         else:
@@ -117,17 +107,15 @@ def main():
                     for index in hash_values:
                         bit_arrays[i][index] = True
 
-        # Write the Bloom filter to a binary file
         for i in range(num_partitions):
             with open(os.path.join(results_folder, f'{binFile}{i}.bin'), 'wb') as f:
                 bit_arrays[i].tofile(f)
     else:
-        # Create a bit array of the specified size, initialized to all 0s
+        # Create a bit array of the specified size.
         bit_array = bitarray.bitarray(num_bits)
         bit_array.setall(False)
 
-        # For each password in the list, generate num_hashes hash values using MurmurHash3 and set the corresponding bits in the bit array to 1
-        # Open the text file containing the list of passwords
+        # For each password in the list, generate num_hashes
         with open(textFile, 'r') as f:
             for line in f:
                 password = line.strip()
@@ -135,7 +123,6 @@ def main():
                     hash_value = mmh3.hash64(password.encode(), i)[0] % num_bits
                     bit_array[hash_value] = True
 
-        # Write the Bloom filter to a binary file
         with open(os.path.join(results_folder, f'{binFile}.bin'), 'wb') as f:
             bit_array.tofile(f)
 
