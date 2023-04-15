@@ -84,7 +84,7 @@ class Color(object):
     
     @staticmethod
     def menuHeading(text):
-        Color.p('\r{+} {C}%s{W} {W}: ' % (
+        Color.p('\r{+} {C}%s{W} {W}: \n\n' % (
             text))
 
     @staticmethod
