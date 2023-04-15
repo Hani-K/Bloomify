@@ -14,6 +14,9 @@ import logger
 import os
 import wCount
 import optimalP
+import readline
+
+readline.parse_and_bind('tab: complete')
 
 def bits_to_gigabyte(bits):
     bytes = bits / 8
