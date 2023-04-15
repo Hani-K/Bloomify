@@ -11,15 +11,25 @@ def format_duration(duration):
     minutes, seconds = divmod(remainder, 60)
     return f'{int(hours):02}:{int(minutes):02}:{int(seconds):02}'
 
-def logging_start(now):
+def startLogging():
+    logfile = f"LOG.log"
+    logging.basicConfig(filename=logfile, level=logging.INFO)
+    now = datetime.datetime.now()
+    date_str = now.strftime("%d/%m/%Y")
+    logging.info(f"================:{date_str}:================")
+
+def endLogging():
+    logging.info(f"================############================\n")
+
+def bfGlog_start(now):
     # Logging
     time_str0 = now.strftime("%H:%M:%S.%f")[:-1]
     date_str = now.strftime("%Y%m%d")
-    logfile = f"BfG_Log_{date_str}.log"
-    logging.basicConfig(filename=logfile, level=logging.INFO)
+    #logfile = f"BfG_Log_{date_str}.log"
+    #logging.basicConfig(filename=logfile, level=logging.INFO)
     return time_str0
 
-def logging_finish(start_time,textFile,binFile,gType,time_str0,num_hashes,num_bits,false_positive_rate):
+def bfGlog_finish(start_time,textFile,binFile,gType,time_str0,num_hashes,num_bits,false_positive_rate):
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
     microseconds = int((elapsed_time - int(elapsed_time)) * 1000000)
@@ -32,7 +42,7 @@ def logging_finish(start_time,textFile,binFile,gType,time_str0,num_hashes,num_bi
     now = datetime.datetime.now()
     time_str1 = now.strftime("%H:%M:%S.%f")[:-1]
     date_str1 = now.strftime("%d/%m/%Y")
-    logging.info(f"================:{date_str1}:================")
+    logging.info(f"===: BFG Logger:")
     logging.info(f"Input  file: {textFile}")
     logging.info(f"Output file: {binFile}")
     logging.info(f"Generation type: {gType}")
