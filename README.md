@@ -1,8 +1,4 @@
-     ____  ________________  ____  __  
-    / __ )/ ____/_  __/ __ \/ __ \/ /  BFTOOL 0.4
-   / __  / /_    / / / / / / / / / /   a list manuplation and bloom filter generation tool
-  / /_/ / __/   / / / /_/ / /_/ / /___ created and maintained by Hani K.
- /_____/_/     /_/  \____/\____/_____/ https://github.com/Hani-K/bftool
+![bftool-removebg-preview](https://github.com/Hani-K/bftool/assets/16754560/dfb7d403-b9ca-4972-bd9f-c6e97ba2a0bf)
 
 
 # BFTOOL
