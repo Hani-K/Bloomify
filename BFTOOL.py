@@ -18,6 +18,8 @@ import readline
 import bfg
 from color import Color
 import subprocess
+import bfCheckerSingle
+import bfCheckerMulti
 
 readline.parse_and_bind('tab: complete')
 
@@ -34,15 +36,9 @@ def menu():
 
     main_menu = {
         '1': 'Bloom Filter Generator',
-        '2': 'List Manuplator',
-        '3': 'File Merger',
-        '0': 'Exit'
-    }
-
-    bfg_menu = {
-        '1': 'Standard (Default)',
-        '2': 'K compensator (hash collision workaround)',
-        '3': 'Partitioning (for very large file when 2nd option fails)',
+        '2': 'Bloom Filter Checker',
+        '3': 'List Manuplator',
+        '4': 'File Merger',
         '0': 'Exit'
     }
 
@@ -58,12 +54,13 @@ def menu():
             Color.menuHeading("Main Menu")
             for key, value in main_menu.items():
                 print(key, value)
-        elif menu_level == 2:
-            subprocess.call(['clear'], shell=True)
-            print_banner()
-            print("\nBFG Menu:\n")
-#            for key, value in main_menu.items():
-#                print(key, value)
+#        elif menu_level == 2:
+ #           subprocess.call(['clear'], shell=True)
+  #          print_banner()
+ #           print("\nBloom Filter Checker:\n")
+ #           print("\nDoes the Bloom Filter consists of a single file or multiple parts?\n")
+ #           for key, value in bfgCheck_menu.items():
+ #               print(key, value)
 
 
         # menu selection
@@ -76,9 +73,31 @@ def menu():
                 print_banner()
                 bfg.bfg()
             elif selection == '2':
-                menu_level = 2
+                menu_level = 1
+                subprocess.call(['clear'], shell=True)
+                print_banner()
+                print("\nBloom Filter Checker:\n")
+                print("""How does the Bloom Filter look like?
+                    1. A single binary file.
+                    2. Multiple binary files (divided into partitions)""")
+                while True:
+                    bloomCheckType = input("Enter your choice: ")
+                    if bloomCheckType == "1":
+                        subprocess.call(['clear'], shell=True)
+                        print_banner()
+                        bfCheckerSingle.main()
+                        break
+                    elif bloomCheckType == "2":
+                        subprocess.call(['clear'], shell=True)
+                        print_banner()
+                        bfCheckerMulti.check()
+                        break
+                    else:
+                        print("Invalid choice. Try again.")
             elif selection == '3':
                 menu_level = 3
+            elif selection == '4':
+                menu_level = 4
             elif selection == '0':
                 break
             else:
