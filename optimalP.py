@@ -5,8 +5,12 @@ import os
 import subprocess
 
 # Function to calculate the optimal false positive rate based on the number of passwords
-def calculate_optimal_false_positive_rate(num_passwords):
-    return math.pow(0.6185, math.log(num_passwords))
+def calculate_optimal_false_positive_rate(num_lines):
+    if num_lines < 10000:
+        optimal_false_positivity = 0.0000001
+        return optimal_false_positivity
+    else:
+        return math.pow(0.6185, math.log(num_lines))
 
 def p_Select(num_lines):
     # Calculate the optimal false positive rate
