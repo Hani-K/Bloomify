@@ -24,12 +24,19 @@ import bfCheckerMulti
 readline.parse_and_bind('tab: complete')
 
 def print_banner():
-    Color.pl(r'{R}     ____  ________________  ____  __  {R}')
-    Color.pl(r'{R}    / __ )/ ____/_  __/ __ {O}\/ {R}__ {O}\/ {R}/  {G}BFTOOL {W}0.4')
-    Color.pl(r'{R}   / __  / /_    / / / / / / / / / /   {W}{D}a list manuplation and bloom filter generation tool{R}')
-    Color.pl(r'{R}  / /_/ / __/   / / / /_/ / /_/ / /___ {W}{D}created and maintained by Hani K.{R}')
-    Color.pl(r'{R} /_____/_/     /_/  {W}{O}\_{R}___/{O}\_{R}___/_____/ {C}{D}https://github.com/Hani-K/bftool{W}')
+    Color.pl(r'{R}    ____  __                      _ ____     {R}')
+    Color.pl(r'{R}   / __ )/ /___  ____  ____ ___  (_) __/_  __')
+    Color.pl(r'{R}  / __  / / __ {O}\/{R} __ {O}\/{R} __ `__ {O}\/{W}{R} / /{D}_{W}{R}/ / / /')
+    Color.pl(r'{R} / /_/ / / /_/ / /_/ / / / / / / / __/ /_/ / ')
+    Color.pl(r'{R}/_____/_/{W}{O}\_{D}{R}___/{W}{O}\_{D}{R}___/_/ /_/ /_/_/_/  {W}{O}\_{D}{R}_, /  ')
+    Color.pl(r'{R}                                    /____/   ')
+    Color.pl(r'{G}Bloomify {W}0.5')
+    Color.pl(r'{W}{D}a list manuplation and bloom filter generation tool')
+    Color.pl(r'{W}{D}created and maintained by Hani K.')
+    Color.pl(r'{C}{D}https://github.com/Hani-K/bloomify{W}')
     Color.pl('\n')
+
+
 
 def menu():
     subprocess.call(['clear'], shell=True)
