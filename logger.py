@@ -53,3 +53,31 @@ def bfGlog_finish(start_time,textFile,binFile,gType,time_str0,num_hashes,num_bit
     logging.info(f"False positives  (p): {false_positive_rate}")
     logging.info(f"Time it took to Generate: {durationTime}.{microseconds:06}")
     logging.info(f"")
+
+def bfChecker_finish(start_time,not_detected_TextFile,binFile,textFile,gType,time_str0,num_hashes,num_bits,num_passwords,num_not_detected,num_detected):
+    end_time = time.perf_counter()
+    elapsed_time = end_time - start_time
+    microseconds = int((elapsed_time - int(elapsed_time)) * 1000000)
+    durationTime = format_duration(elapsed_time)
+    print(f"Time it took to check: {durationTime}.{microseconds:06}")
+    print()
+    print(f"Checked List file: {textFile}")
+    print(f"Bloom Filter Binary: {binFile}")
+
+    now = datetime.datetime.now()
+    time_str1 = now.strftime("%H:%M:%S.%f")[:-1]
+    date_str1 = now.strftime("%d/%m/%Y")
+    logging.info(f"===: CHECKER:")
+    logging.info(f"Input txt: {textFile}")
+    logging.info(f"Input Bin: {binFile}")
+    logging.info(f"Check type: {gType}")
+    logging.info(f"Total number of items checked: {num_passwords}")
+    logging.info(f"Number of items detected: {num_detected}")
+    logging.info(f"Number of items NOT detected: {num_not_detected}")
+    logging.info(f"Output undetected items file: {not_detected_TextFile}")
+    logging.info(f"Started at: {time_str0}")
+    logging.info(f"Ended   at: {time_str1}")
+    logging.info(f"number of hashes (k): {num_hashes}")
+    logging.info(f"number of bits   (m): {num_bits}")
+    logging.info(f"Time it took to Check: {durationTime}.{microseconds:06}")
+    logging.info(f"")
