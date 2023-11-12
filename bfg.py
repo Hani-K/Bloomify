@@ -41,9 +41,9 @@ def bfg():
             break
         elif choice == "2":
             gType = "Test"
-            false_positive_rate = 0.0001
-            number_of_lines = 39
             textFile = "testList.txt"
+            number_of_lines = wCount.count_lines_file(textFile)
+            false_positive_rate = optimalP.p_Select(number_of_lines)
             now = datetime.datetime.now()
             binFile = "testBF"
             break
@@ -113,6 +113,12 @@ def bfg():
         for i in range(num_partitions):
             with open(os.path.join(results_folder, f'{binFile}{i}.bin'), 'wb') as f:
                 bit_arrays[i].tofile(f)
+
+        # Logging
+        FinalBinFile = os.path.join(results_folder, f'{binFile}.bin')
+        logger.bfGlog_finish(start_time,textFile,FinalBinFile,gType,time_str0,num_hashes,num_bits,false_positive_rate,number_of_lines)
+        logger.bfgMulti_Log(num_partitions,num_bits_per_partition)
+
     else:
         # Create a bit array of the specified size.
         bit_array = bitarray.bitarray(num_bits)
@@ -129,6 +135,10 @@ def bfg():
         with open(os.path.join(results_folder, f'{binFile}.bin'), 'wb') as f:
             bit_array.tofile(f)
 
-    # Logging
-    FinalBinFile = os.path.join(results_folder, f'{binFile}.bin')
-    logger.bfGlog_finish(start_time,textFile,FinalBinFile,gType,time_str0,num_hashes,num_bits,false_positive_rate)
+        # Logging
+        FinalBinFile = os.path.join(results_folder, f'{binFile}.bin')
+        logger.bfGlog_finish(start_time,textFile,FinalBinFile,gType,time_str0,num_hashes,num_bits,false_positive_rate)
+
+def main():
+    bfg()
+    input = input("\nClick enter to continue...")
