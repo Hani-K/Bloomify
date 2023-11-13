@@ -128,11 +128,30 @@ def lineRemover_Log(start_time,inFile,outFile,original_linesCount,output_linesCo
 
     now = datetime.datetime.now()
     time_str1 = now.strftime("%H:%M:%S.%f")[:-1]
-    logging.info(f"===: <8 Length Remover:")
+    logging.info(f"===: Line Remover:")
     logging.info(f"Function Used: {function_used}")
     logging.info(f"Input  file: {inFile}")
     logging.info(f"Output file: {outFile}")
     logging.info(f'Time started: {time_str0}')
+    logging.info(f"Time   ended: {time_str1}")
     logging.info(f'Original word count: {original_linesCount}')
     logging.info(f"Removed   words: {num_removed_words}")
     logging.info(f'Remaining words: {output_linesCount}')
+
+def fileMerger_Log(start_time,path,files_merged,merged_line_count,merged_file,time_str0):
+    end_time = time.perf_counter()
+    elapsed_time = end_time - start_time
+    microseconds = int((elapsed_time - int(elapsed_time)) * 1000000)
+    durationTime = format_duration(elapsed_time)
+    print(f"Time it took to process: {durationTime}.{microseconds:06}")
+    print()
+
+    now = datetime.datetime.now()
+    time_str1 = now.strftime("%H:%M:%S.%f")[:-1]
+    logging.info(f"===: Files Merger:")
+    logging.info(f"Path of the merged files: {path}")
+    logging.info(f"Files that were merged: {files_merged}")
+    logging.info(f"Output file with merged results: {merged_file}")
+    logging.info(f'Time started: {time_str0}')
+    logging.info(f"Time   ended: {time_str1}")
+    logging.info(f'Word count in merged file: {merged_line_count}')
