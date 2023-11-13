@@ -46,3 +46,26 @@ def less_than_8_remover(inFile, outFile):
     logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0)
 
     input('\nPress Enter...')
+
+def allInOne(inFile, outFile):
+    # Logging
+    now = datetime.datetime.now()
+    start_time = time.perf_counter()
+    time_str0 = logger.bfGlog_start(now)
+
+    orig_num_lines = count_lines(inFile)
+    print('Removing duplicates & less than 8 char words...')
+    with open(outFile, 'w') as output_file:
+        subprocess.call(['awk', '!seen[$0]++ && length >= 8', inFile], stdout=output_file)
+    unique_lines = count_lines(outFile)
+    num_words_removed = orig_num_lines - unique_lines
+    print(f'{num_words_removed} words removed!\n')
+
+    num_removed_words = count_lines(inFile) - count_lines(outFile) 
+    output_linesCount = count_lines(outFile)
+    orig_num_lines = count_lines(inFile)
+    
+    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0)
+
+
+    input('\nPress Enter...')

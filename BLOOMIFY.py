@@ -143,6 +143,18 @@ def menu():
                 outFile = os.path.join(curated_path, inFile)
                 print(f'\nOriginal word count: {lineRemover.count_lines(inFile)}')
                 lineRemover.less_than_8_remover(inFile, outFile)
+            elif selection == '2':
+                while True:
+                    inFile = lineRemover.extension_check(input("Enter input file path: "))
+                    if os.path.exists(inFile):
+                        break 
+                    else:
+                        print("Invalid file path. Please try again.")
+                curated_path = lineRemover.create_output_folder()
+                outFile = os.path.join(curated_path, inFile)
+                print(f'\nOriginal word count: {lineRemover.count_lines(inFile)}')
+                lineRemover.allInOne(inFile, outFile)
+            
             elif selection == '6':
                 menu_level = 1
             else:
