@@ -106,3 +106,21 @@ def less_than_length_remover(inFile, outFile, length):
     
 
     input('\nPress Enter...')
+
+def more_than_length_remover(inFile, outFile, length):
+    # Logging
+    now = datetime.datetime.now()
+    start_time = time.perf_counter()
+    time_str0 = logger.bfGlog_start(now)
+
+    print(f'Removing words {length} characters long...')
+    with open(outFile, 'w') as output_file:
+        subprocess.call(['awk', f'length > {length}', inFile], stdout=output_file)
+
+    num_removed_words = count_lines(inFile) - count_lines(outFile)
+    output_linesCount = count_lines(outFile)
+    orig_num_lines = count_lines(inFile)
+    
+    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0)
+    
+    input('\nPress Enter...')

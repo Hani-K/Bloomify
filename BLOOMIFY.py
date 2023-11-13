@@ -188,7 +188,23 @@ def menu():
                         print('Invalid Value, Try again!\n')
                 print(f'\nOriginal word count: {lineRemover.count_lines(inFile)}')
                 lineRemover.less_than_length_remover(inFile, outFile, length)
-            
+            elif selection == '5':
+                while True:
+                    inFile = lineRemover.extension_check(input("Enter the path of the file to be processed: "))
+                    if os.path.exists(inFile):
+                        break 
+                    else:
+                        print("Invalid file path. Please try again.")
+                curated_path = lineRemover.create_output_folder()
+                outFile = os.path.join(curated_path, inFile)
+                while True:
+                    try:
+                        length = int(input('Enter the maximum length (words bigger than that length will be removed): '))
+                        break
+                    except ValueError:
+                        print('Invalid Value, Try again!\n')
+                print(f'\nOriginal word count: {lineRemover.count_lines(inFile)}')
+                lineRemover.more_than_length_remover(inFile, outFile, length)
             elif selection == '6':
                 menu_level = 1
             else:
