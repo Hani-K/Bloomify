@@ -111,3 +111,28 @@ def dupliMover_Log(start_time,inFile,outFile,original_linesCount,output_linesCou
     logging.info(f'Original word count: {original_linesCount}')
     logging.info(f"Removed   words: {num_removed_words}")
     logging.info(f'Remaining words: {output_linesCount}')
+
+def lineRemover_Log(start_time,inFile,outFile,original_linesCount,output_linesCount,num_removed_words,time_str0,function_used):
+    end_time = time.perf_counter()
+    elapsed_time = end_time - start_time
+    microseconds = int((elapsed_time - int(elapsed_time)) * 1000000)
+    durationTime = format_duration(elapsed_time)
+    print(f"Time it took to process: {durationTime}.{microseconds:06}")
+    print()
+    print(f"Original File: {inFile}")
+    print()
+    print(f"Original file's word count: {original_linesCount}")
+    print(f'Words Removed: {num_removed_words}')
+    print(f'Remaining words: {output_linesCount}')
+    print(f'Remaining words were generated in {outFile} file')
+
+    now = datetime.datetime.now()
+    time_str1 = now.strftime("%H:%M:%S.%f")[:-1]
+    logging.info(f"===: <8 Length Remover:")
+    logging.info(f"Function Used: {function_used}")
+    logging.info(f"Input  file: {inFile}")
+    logging.info(f"Output file: {outFile}")
+    logging.info(f'Time started: {time_str0}')
+    logging.info(f'Original word count: {original_linesCount}')
+    logging.info(f"Removed   words: {num_removed_words}")
+    logging.info(f'Remaining words: {output_linesCount}')
