@@ -43,7 +43,8 @@ def less_than_8_remover(inFile, outFile):
     output_linesCount = count_lines(outFile)
     orig_num_lines = count_lines(inFile)
     
-    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0)
+    function_used = "Remove words less than 8 characters long"
+    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0,function_used)
 
     input('\nPress Enter...')
 
@@ -65,7 +66,8 @@ def allInOne(inFile, outFile):
     output_linesCount = count_lines(outFile)
     orig_num_lines = count_lines(inFile)
     
-    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0)
+    function_used = "Remove duplicates & words less than 8 characters long"
+    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0,function_used)
 
 
     input('\nPress Enter...')
@@ -84,7 +86,9 @@ def length_select_remover(inFile, outFile, length):
     output_linesCount = count_lines(outFile)
     orig_num_lines = count_lines(inFile)
     
-    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0)
+    function_used = f'Remove lines with {length} characters long'
+
+    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0,function_used)
 
     input('\nPress Enter...')
 
@@ -102,9 +106,9 @@ def less_than_length_remover(inFile, outFile, length):
     output_linesCount = count_lines(outFile)
     orig_num_lines = count_lines(inFile)
     
-    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0)
+    function_used = f"Remove lines less than {length} long"
+    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0,function_used)
     
-
     input('\nPress Enter...')
 
 def more_than_length_remover(inFile, outFile, length):
@@ -120,7 +124,8 @@ def more_than_length_remover(inFile, outFile, length):
     num_removed_words = count_lines(inFile) - count_lines(outFile)
     output_linesCount = count_lines(outFile)
     orig_num_lines = count_lines(inFile)
-    
-    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0)
+    function_used = f"Remove lines more then {length} long"
+
+    logger.dupliMover_Log(start_time,inFile,outFile,orig_num_lines,output_linesCount,num_removed_words,time_str0,function_used)
     
     input('\nPress Enter...')

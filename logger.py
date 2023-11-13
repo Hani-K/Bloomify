@@ -112,7 +112,7 @@ def dupliMover_Log(start_time,inFile,outFile,original_linesCount,output_linesCou
     logging.info(f"Removed   words: {num_removed_words}")
     logging.info(f'Remaining words: {output_linesCount}')
 
-def lineRemover_Log(start_time,inFile,outFile,original_linesCount,output_linesCount,num_removed_words,time_str0):
+def lineRemover_Log(start_time,inFile,outFile,original_linesCount,output_linesCount,num_removed_words,time_str0,function_used):
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
     microseconds = int((elapsed_time - int(elapsed_time)) * 1000000)
@@ -129,6 +129,7 @@ def lineRemover_Log(start_time,inFile,outFile,original_linesCount,output_linesCo
     now = datetime.datetime.now()
     time_str1 = now.strftime("%H:%M:%S.%f")[:-1]
     logging.info(f"===: <8 Length Remover:")
+    logging.info(f"Function Used: {function_used}")
     logging.info(f"Input  file: {inFile}")
     logging.info(f"Output file: {outFile}")
     logging.info(f'Time started: {time_str0}')
