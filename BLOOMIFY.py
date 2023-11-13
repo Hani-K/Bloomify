@@ -130,7 +130,12 @@ def menu():
                         print("Invalid choice. Try again.")
             elif selection == '3':
                 menu_level = 1
-                inFile = dupliMover.extension_check(input("Enter the path of the file you want to remove duplicates from: "))
+                while True:
+                    inFile = dupliMover.extension_check(input("Enter the path of the file you want to remove duplicates from: "))
+                    if os.path.exists(inFile):
+                        break 
+                    else:
+                        print("Invalid file path. Please try again.")
                 curated_path = dupliMover.create_output_folder()
                 outFile = os.path.join(curated_path, inFile)
                 print(f'\nOriginal word count: {dupliMover.count_lines(inFile)}')
