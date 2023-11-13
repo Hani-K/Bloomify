@@ -25,6 +25,11 @@ def create_output_folder():
     return curated_folder
 
 def merge_all_in_one(path):
+    # Logging
+    now = datetime.datetime.now()
+    start_time = time.perf_counter()
+    time_str0 = logger.bfGlog_start(now)
+
     if os.path.exists(path):
         if not path.endswith('/'):
             path += '/'
@@ -47,11 +52,7 @@ def merge_all_in_one(path):
         merged_line_count = count_lines(merged_file)
         print(f'Result is generated in {merged_file} file')
 
-        logging.info(f"===: Files In Path Merger:")
-        logging.info(f"Path: {path}")
-        logging.info(f"Files merged: {files_merged}")
-        logging.info(f'Time started: {datetime.datetime.now().strftime("%H:%M:%S.%f")[:-1]}')
-        logging.info(f'Word count in merged file: {merged_line_count}')
+        logger.dupliMover_Log(start_time,path,files_merged,merged_line_count,merged_file,time_str0)
 
         input('\nPress Enter...')
     else:
