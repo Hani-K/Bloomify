@@ -171,28 +171,7 @@ def menu():
                         print('Invalid Value, Try again!\n')
                 print(f'\nOriginal word count: {lineRemover.count_lines(inFile)}')
                 lineRemover.length_select_remover(inFile, outFile, length)
-            elif selection == '4':
-                inFile = extension_check(input("Enter input file path: "))
-                outFile = os.path.join(results_folder, inFile)
-                while True:
-                    try:
-                        length = int(input('Enter the minimum length (words less than that length will be removed): '))
-                        break
-                    except ValueError:
-                        print('Invalid Value, Try again!\n')
-                print(f'\nOriginal word count: {count_lines(inFile)}')
-                less_than_length_remover(inFile, outFile, length)
-            elif selection == '5':
-                inFile = extension_check(input("Enter input file path: "))
-                outFile = os.path.join(results_folder, inFile)
-                while True:
-                    try:
-                        length = int(input('Enter the maximum length (words bigger than that length will be removed): '))
-                        break
-                    except ValueError:
-                        print('Invalid Value, Try again!\n')
-                print(f'\nOriginal word count: {count_lines(inFile)}')
-                more_than_length_remover(inFile, outFile, length)
+            
             elif selection == '6':
                 menu_level = 1
             else:
