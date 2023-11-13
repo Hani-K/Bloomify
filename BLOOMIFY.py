@@ -22,6 +22,7 @@ import bfCheckerSingle
 import bfCheckerMulti
 import dupliMover
 import lineRemover
+import fileMerger
 
 readline.parse_and_bind('tab: complete')
 
@@ -62,6 +63,14 @@ def menu():
         '6': 'Back'
     }
 
+    # Define the third-level menu options
+    file_merger_menu = {
+        '1': 'Merge all files in a specific path.',
+        '2': 'Merge specific files',
+        '3': 'Merge all files in curated folder.',
+        '4': 'Back'
+    }
+
     # Define the initial menu level
     menu_level = 1
 
@@ -77,8 +86,14 @@ def menu():
         elif menu_level == 2:
             subprocess.call(['clear'], shell=True)
             print_banner()
-            Color.menuHeading("\nLines Remover Menu")
+            Color.menuHeading("Lines Remover")
             for key, value in lines_remover_menu.items():
+                print(key, value)
+        elif menu_level == 3:
+            subprocess.call(['clear'], shell=True)
+            print_banner()
+            Color.menuHeading("File Merger")
+            for key, value in file_merger_menu.items():
                 print(key, value)
 
 
@@ -123,7 +138,7 @@ def menu():
             elif selection == '4':
                 menu_level = 2
             elif selection == '5':
-                menu_level = 5
+                menu_level = 3
             elif selection == '0':
                 break
             else:
@@ -206,6 +221,32 @@ def menu():
                 print(f'\nOriginal word count: {lineRemover.count_lines(inFile)}')
                 lineRemover.more_than_length_remover(inFile, outFile, length)
             elif selection == '6':
+                menu_level = 1
+            else:
+                print("Invalid selection. Try again!\n")
+                input()
+
+        #file_merger_menu
+        elif menu_level == 3:
+            if selection == '1':
+                while True:
+                    path_directory = input('\nEnter the path within which you want to merge all files:\n')
+                    if os.path.isdir(path_directory):
+                        break
+                    else:
+                        print("Invalid directory path. Please try again.")
+                fileMerger.merge_all_in_one(path_directory)
+            elif selection == '2':
+                #loop taking inputs until done is written
+                #Merge specific files
+                print('\nUnder construction...')
+                input()
+            elif selection == '3':
+                pwd = subprocess.run(['pwd'], stdout=subprocess.PIPE, universal_newlines=True)
+                curated_path = fileMerger.create_output_folder()
+                path_to_process = os.path.join(pwd.stdout.strip(), curated_path)
+                fileMerger.merge_all_in_one(path_to_process)
+            elif selection == '4':
                 menu_level = 1
             else:
                 print("Invalid selection. Try again!\n")
