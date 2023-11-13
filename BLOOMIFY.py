@@ -21,6 +21,7 @@ import subprocess
 import bfCheckerSingle
 import bfCheckerMulti
 import dupliMover
+import lineRemover
 
 readline.parse_and_bind('tab: complete')
 
@@ -51,6 +52,16 @@ def menu():
         '0': 'Exit'
     }
 
+    # Define the second-level menu options
+    lines_remover_menu = {
+        '1': 'Remove every line below 8 char long',
+        '2': 'Remove duplicates and every line below 8 char long',
+        '3': 'Remove all lines of a certain length.',
+        '4': 'Remove all lines below a certain length.',
+        '5': 'Remove all lines above a certain length',
+        '6': 'Back'
+    }
+
     # Define the initial menu level
     menu_level = 1
 
@@ -63,13 +74,12 @@ def menu():
             Color.menuHeading("Main Menu")
             for key, value in main_menu.items():
                 print(key, value)
-#        elif menu_level == 2:
- #           subprocess.call(['clear'], shell=True)
-  #          print_banner()
- #           print("\nBloom Filter Checker:\n")
- #           print("\nDoes the Bloom Filter consists of a single file or multiple parts?\n")
- #           for key, value in bfgCheck_menu.items():
- #               print(key, value)
+        elif menu_level == 2:
+            subprocess.call(['clear'], shell=True)
+            print_banner()
+            Color.menuHeading("\nLines Remover Menu")
+            for key, value in lines_remover_menu.items():
+                print(key, value)
 
 
         # menu selection
@@ -111,11 +121,30 @@ def menu():
                 print(f'\nOriginal word count: {dupliMover.count_lines(inFile)}')
                 dupliMover.duplicate_remover(inFile, outFile)
             elif selection == '4':
-                menu_level = 4
+                menu_level = 2
             elif selection == '5':
                 menu_level = 5
             elif selection == '0':
                 break
+            else:
+                print("Invalid selection. Try again!\n")
+                input()
+
+        #lines_remover_menu
+        elif menu_level == 2:
+            if selection == '1':
+                while True:
+                    inFile = lineRemover.extension_check(input("Enter the path of the file to be processed: "))
+                    if os.path.exists(inFile):
+                        break 
+                    else:
+                        print("Invalid file path. Please try again.")
+                curated_path = lineRemover.create_output_folder()
+                outFile = os.path.join(curated_path, inFile)
+                print(f'\nOriginal word count: {lineRemover.count_lines(inFile)}')
+                lineRemover.less_than_8_remover(inFile, outFile)
+            elif selection == '6':
+                menu_level = 1
             else:
                 print("Invalid selection. Try again!\n")
                 input()
