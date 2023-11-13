@@ -20,6 +20,7 @@ from color import Color
 import subprocess
 import bfCheckerSingle
 import bfCheckerMulti
+import dupliMover
 
 readline.parse_and_bind('tab: complete')
 
@@ -44,8 +45,9 @@ def menu():
     main_menu = {
         '1': 'Bloom Filter Generator',
         '2': 'Bloom Filter Checker',
-        '3': 'List Manuplator',
-        '4': 'File Merger',
+        '3': 'Duplicates Remover',
+        '4': 'List Manuplator',
+        '5': 'File Merger',
         '0': 'Exit'
     }
 
@@ -102,9 +104,16 @@ def menu():
                     else:
                         print("Invalid choice. Try again.")
             elif selection == '3':
-                menu_level = 3
+                menu_level = 1
+                inFile = dupliMover.extension_check(input("Enter the path of the file you want to remove duplicates from: "))
+                curated_path = dupliMover.create_output_folder()
+                outFile = os.path.join(curated_path, inFile)
+                print(f'\nOriginal word count: {dupliMover.count_lines(inFile)}')
+                dupliMover.duplicate_remover(inFile, outFile)
             elif selection == '4':
                 menu_level = 4
+            elif selection == '5':
+                menu_level = 5
             elif selection == '0':
                 break
             else:
