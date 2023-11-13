@@ -254,7 +254,11 @@ def menu():
         
 
 if __name__ == '__main__':
-    print_banner()
-    logger.startLogging()
-    menu()
-    logger.endLogging()
+    try:
+        print_banner()
+        logger.startLogging()
+        menu()
+        logger.endLogging()
+    except KeyboardInterrupt:
+        print('\nCTRL + C is Detected\nExiting...')
+        exit(0)
