@@ -1,4 +1,5 @@
-![Bloomify](https://github.com/Hani-K/bftool/assets/16754560/87d11be4-0b56-46d7-b3ab-0491eeb12956)
+
+![bloomify](https://github.com/Hani-K/Bloomify/assets/16754560/4cf18bbb-a741-44cf-9d6a-c3fb8a72f79b)
 
 
 # Bloomify
